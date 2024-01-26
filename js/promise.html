@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        import cal from '../module/calculator.js';
+        console.log(cal.defNum ,cal.add(1,2));
+    </script>
+</head>
+
+<body>
+    <script>
+        
+        // console.log(add(1,2));
+        let fetch = (url, method, data) => {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.setRequestHeader("Content-type", "application/json");
+                xhr.send(JSON.stringify(data));
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState != XMLHttpRequest.DONE) return;
+                    if (xhr.status >= 200 && xhr.status < 400) {
+                        resolve(xhr.response);
+                    } else {
+                        reject(new Error(xhr.status));
+                    }
+                }
+            })
+        }
+
+        // 비동기이기때문에 순서는 보장 못함. 
+        // 꼭 순서가 필요하면 어싱크/어웨이트 쓰자.
+        fetch("https://reqres.in/api/users?page=2", "Get")
+            .then(result => JSON.parse(result))
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+
+        console.log("fetch 바깥에 실행");
+
+        
+    </script>
+</body>
+
+</html>
