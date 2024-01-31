@@ -36,13 +36,13 @@ app.put('/t_users/:user_no', async (req, res) => {
 });
 
 async function updateAll(request) {
-    let data = [selectedInfo(request.body.param), request.params.user_no];  // set절, id컬럼
+    let data = [selectedInfo(request.body.param), request.params.user_no];
     let result = await mysql.executeQuery('t_userUpdateAll', data);
     return result;
 }
 
 async function updateInfo(request) {
-    let data = [ ...getInfo(request.body.param), request.params.user_no]; // 칼럼 : email, phone, address, id
+    let data = [ ...getInfo(request.body.param), request.params.user_no];
     let result = await mysql.executeQuery('t_userUpdateInfo', data);
     return result;
 }
